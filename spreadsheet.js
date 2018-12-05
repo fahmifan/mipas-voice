@@ -11,17 +11,6 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
 // time.
 const TOKEN_PATH = 'token.json';
 
-// // Load client secrets from a local file.
-// fs.readFile('credentials.json', (err, content) => {
-//   if (err) {
-//     console.log('Error loading client secret file:', err);
-//     return
-//   }
-  
-//   // Authorize a client with credentials, then call the Google Sheets API.
-//   authorize(JSON.parse(content), listResponse);
-// });
-
 function pull() {
   return new Promise((resolve, reject) => {
     // Load client secrets from a local file.
@@ -96,7 +85,7 @@ function listResponse(auth) {
     const sheet = google.sheets({version: 'v4', auth});
     sheet.spreadsheets.values.get({
       spreadsheetId: process.env.SPREADSHEET_ID,
-      range: 'Form Responses 1!A:E',
+      range: 'Form Responses 1!A2:E',
     }, (err, res) => {
       if(err) {
         console.log('The API returned an error: ' + err);
