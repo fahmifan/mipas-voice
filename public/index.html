@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Mipas Voice</title>
+    <title>Mipa's Voice</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">    
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: #563D7C !important">
-    <a class="navbar-brand" style="color: #fff" href="#">Mipas Voice</a>
+    <a class="navbar-brand" style="color: #fff" href="#"><b>Mipa's Voice</b></a>
   </nav>
-  <header style="margin-top: 2rem" class="container">
-    <h1 style="text-align: center;">List Response</h1>
+  <header style="margin-top: 2rem; margin-bottom: 1rem" class="container">
+    <h3 style="text-align: center;">List Response</h3>
   </header>
-  <main class="container" id="root"></main>
+  <main class="container" style="overflow: auto" id="root"></main>
   
   <!-- Google form -->
   <section class="container" style="padding-top: 4rem; background: #eee;">
@@ -37,6 +37,7 @@
       : state.isLoading ? '<tr><td></td><td>Loading...</td></tr>'
         : state.responses.length ? state.responses.map((res) => (
           `<tr>
+            <td scope="col">${res.createdAt}</td>
             <td scope="col">${res.major}</td>
             <td scope="col">${res.topic}</td>
             <td scope="col">${res.message}</td>
@@ -45,8 +46,9 @@
         : ''
 
       root.innerHTML = `<table class="table" style="margin: auto">
-        <thead>
-          <tr>
+        <thead style="background: #ececec">
+          <tr>            
+            <th scope="row">#</th>
             <th scope="row">Jurusan</th>
             <th scope="row">Topic</th>
             <th scope="row">Pesan</th>
