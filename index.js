@@ -13,6 +13,14 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/index.html'))
 })
 
+function ucFirst(string) 
+{
+  return string
+    .split(' ')
+    .map(str => str.charAt(0).toUpperCase() + str.slice(1))
+    .join(' ')
+}
+
 app.get('/api/responses', (req, res) => {
   sheet.pull().then((auth) => {
     sheet.listResponse(auth).then((rows) => {
@@ -20,7 +28,7 @@ app.get('/api/responses', (req, res) => {
       const mapped = rows.map((row, idx) => {
         return {
           "createdAt": row[0],
-          "major": row[1],
+          "major": ucFirst(row[1]),
           "topic": row[2],
           "message":  row[3],
         }         
