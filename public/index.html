@@ -32,7 +32,6 @@
     }
 
     function render() {
-      
       const responses = state.error ? `<tr><td></td><td>Kosong</td></tr>`
       : state.isLoading ? '<tr><td></td><td>Loading...</td></tr>'
         : state.responses.length ? state.responses.map((res) => (
@@ -45,7 +44,7 @@
           )).join('')
         : ''
 
-      root.innerHTML = `<table class="table" style="margin: auto">
+      root.innerHTML = `<table class="table" style="margin: auto; width: 80%">
         <thead style="background: #ececec">
           <tr>            
             <th scope="row">#</th>
@@ -59,33 +58,36 @@
         </tbody>
       </table>`
     }
+    function getResponse() {
+      fetch('/api/responses', {
+        method: "GET"
+      })
+        .then(res => {
+          state = {...state, isLoading: true}
+          render()
 
+          if(res.ok) return res.json()
+          throw new Error("failed")
+        })
+        .then(res => {
+          state = {...state, 
+            responses: [...state.responses, ...res], 
+            isLoading: false
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          state = {...state, isLoading: false, error: err}
+        })
+        .then(() => {
+          console.log(state)
+          render()
+        })
+    }
+    
     render()
+    getResponse()
 
-    fetch('/api/responses', {
-      method: "GET"
-    })
-      .then(res => {
-        state = {...state, isLoading: true}
-        render()
-
-        if(res.ok) return res.json()
-        throw new Error("failed")
-      })
-      .then(res => {
-        state = {...state, 
-          responses: [...state.responses, ...res], 
-          isLoading: false
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        state = {...state, isLoading: false, error: err}
-      })
-      .then(() => {
-        console.log(state)
-        render()
-      })
       
   </script>
 </body>
