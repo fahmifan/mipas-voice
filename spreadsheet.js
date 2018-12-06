@@ -89,7 +89,7 @@ function listResponse(auth) {
     }, (err, res) => {
       if(err) {
         console.log('The API returned an error: ' + err);
-        reject([])
+        reject(new Error(err))
         return
       }
   
@@ -101,7 +101,7 @@ function listResponse(auth) {
       } 
   
       console.log("no data found")
-      reject([])
+      reject(new Error("no data found"))
     })
   })
 }

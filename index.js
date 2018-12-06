@@ -37,6 +37,14 @@ app.get('/api/responses', (req, res) => {
 
       res.status(200).json(mapped)
     })
+    .catch(error => {
+      console.log("Error", error)
+      res.status(400).json(error)
+    })
+  })
+  .catch(error => {
+    console.log("Error", error)
+    res.status(400).json(error)
   })
 })
 
