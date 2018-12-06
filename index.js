@@ -26,13 +26,14 @@ app.get('/api/responses', (req, res) => {
     sheet.listResponse(auth).then((rows) => {
       // mapping rows
       const mapped = rows.map((row, idx) => {
+        const date = new Date(row[0])
         return {
-          "createdAt": row[0],
+          "createdAt": `${date.getDate()}/${date.getMonth() + 1} ${date.getUTCFullYear()}`,
           "major": ucFirst(row[1]),
           "topic": row[2],
           "message":  row[3],
         }         
-      })
+      }).reverse()
 
       res.status(200).json(mapped)
     })
